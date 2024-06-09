@@ -1,4 +1,5 @@
 import pygame
+import os
 
 #set window para
 width = 800
@@ -12,12 +13,20 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 
+# set up folders of assets
+game_folder = os.path.dirname(__file__)
+image_folder = os.path.join(game_folder, "images")
+
+
 #initialize pygame screen
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("umers game")
 clock = pygame.time.Clock()
+
+
+
 
 #loop (runs 30 times a second?)
 running = True
@@ -31,8 +40,8 @@ class Player(pygame.sprite.Sprite):    #player sprite
     # this code runs whenever player object gets made
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50,50)) # what the sprite looks li
-        self.image.fill(green)
+        # load image
+        self.image = pygame.image.load(os.path.join(image_folder, "p1_jump.png")).convert()
 
         self.rect = self.image.get_rect()  # encloses the sprite, helps moving it etc
         self.rect.center = ((width/2, height/2))     #the center of rect will be where we have set position
