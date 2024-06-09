@@ -42,17 +42,24 @@ class Player(pygame.sprite.Sprite):    #player sprite
         pygame.sprite.Sprite.__init__(self)
         # load image
         self.image = pygame.image.load(os.path.join(image_folder, "p1_jump.png")).convert()
+        # theres black rectangle around image we want to remove
+        self.image.set_colorkey(black)
+
 
         self.rect = self.image.get_rect()  # encloses the sprite, helps moving it etc
         self.rect.center = ((width/2, height/2))     #the center of rect will be where we have set position
-
+        self.y_speed=5
 
     def update(self):
         self.rect.x +=5        # moves to right
+        self.rect.y += self.y_speed     #moves up
         # make sure not get out of screen
         if self.rect.left > width:
             self.rect.right = 0
-
+        if self.rect.bottom > height-200:
+            self.y_speed = -5
+        if self.rect.top < 200:
+            self.y_speed = 5
 ####
 
 # make a sprite group to make work easy
@@ -79,7 +86,7 @@ while running:
 
 
     #3. draw the update
-    screen.fill(black)
+    screen.fill(green)
 
     all_sprites.draw(screen)   # draws all the sprites at the surface of screen
 
